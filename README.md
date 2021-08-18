@@ -1,61 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+# Sports REST API
 
-## About Laravel
+## About the project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### This project is for REST API calls:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Following are the steps to follow:
+- Composer install the package
+- Migrate the database by using - ```php artisan migrate```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+## User Authentication
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Authentication is done using Laravel passport package 
+- Run the following commands to install the package at your end
+- ```php artisan passport:install```
+- ```php artisan passport:keys```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## Admin functionality
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+#### To create admin user there are 2 methods
 
-### Premium Partners
+- Run the seeder command to add default admin:
+    - ```php artisan db:seed --class=UserSeeder```
+    - **name: admin, email: admin@gmail.com, password:password**
+- Add admin user using API call:
+    - To add more admin users
+    - ```https://{base_name}/api/register ```
+    - **name, email, password, password_confirmation, role**
+    - Add field ```Role: 1``` to make admin
+    
+#### Admin Login : 
+```http://{base_name}/api/login:```
+- Fields: **email, password**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+#### After Authentication only the admin user has access to the following API calls:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- ```https://{base_name}/api/player/create```
+    - Fields: **first_name, player_image_uri, last_name, team_id**
+- ```https://{base_name}/api/player/update```
+    - Fields: **id, (first_name, player_image_uri, last_name, team_id) - not mandatory**
+- ```https://{base_name}/api/player/disable```
+    - Fields: **id**
+- ```https://{base_name}/api/player/delete```
+    - Fields: **id**
+- ```https://{base_name}/api/team/create```
+    - Fields: **name, logo_uri**
+- ```https://{base_name}/api/team/update```
+    - Fields: **id, (name, logo_uri)- not mandatory**
+- ```https://{base_name}/api/team/disable```
+    - Fields: **id**
+- ```https://{base_name}/api/team/delete``` 
+    - Fields: **id**
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Public Rest Api's
 
-## Security Vulnerabilities
+#### As a normal user there are certain API's which can be accessed publicly:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- ```https://{base_name}/api/team/list```
+- ```https://{base_name}/api/team/players/{param}```
+    - The **param** can be **team ID** or **team name**
+- ```https://{base_name}/api/player/{param}```
+    - The **param** can be player **ID**, **first_name**, **last_name**
+    
 
-## License
+## Exception handling
+- Exception are handled as per laravel default functionality and with a custom json response if required can be handled in a more custom way eg: sending email to admin or sending to bugsng 
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Unit test cases
+- Test cases are not done for now
+
+
+
+

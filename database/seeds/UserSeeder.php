@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -14,14 +16,15 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-    	$time = time();
+        $mytime = Carbon::now();
+    	$datetime = $mytime->toDateTimeString();
         DB::table('users')->insert([
-            'name' => Str::random(10),
-            'email' => Str::random(10).'@gmail.com',
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
             'password' => Hash::make('password'),
-            'role' => 'admin',
-            'created_at' => $time,
-            'updated_at' => $time,
+            'role' => User::ROLE_ADMIN,
+            'created_at' => $datetime,
+            'updated_at' => $datetime,
         ]);
     }
 }

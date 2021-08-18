@@ -19,6 +19,12 @@ class Team extends Model
         return $this->hasMany('App\Models\Player');
     }
 
+    /**
+     * Function to create Team
+     * 
+     * @param \Illuminate\Http\Request  $request
+     * @return $team
+     */
     public static function create($request)
     {
         $name = $request->name;

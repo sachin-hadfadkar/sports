@@ -20,6 +20,12 @@ class Player extends Model
         return $this->belongsTo('App\Models\Team');
     }
 
+    /**
+     * Function to create Player
+     * 
+     * @param \Illuminate\Http\Request  $request
+     * @return $player
+     */
     public static function create($request)
     {
         $firstName = $request->first_name;

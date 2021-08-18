@@ -44,6 +44,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    /**
+     * Create user with role for application
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @return $user
+     */
     public static function create($request) {
         $role = (int) $request->role;
         $user = new User();

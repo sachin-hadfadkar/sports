@@ -5,6 +5,9 @@
 
 ### This project is for REST API calls:
 
+#### Used laravel framework for the application
+    - Please copy .env file and make Db changes
+
 #### Following are the steps to follow:
 - Composer install the package
 - Migrate the database by using - ```php artisan migrate```
